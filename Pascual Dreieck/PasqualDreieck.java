@@ -1,26 +1,27 @@
-public class PasqualDreieck {
+class PasqualDreieck {
 
-    public void PrintPasqualDreieck(int rows){
+    public static void PrintPasqualDreieck(int rows){
+        if(rows < 1) throw new IllegalArgumentException("value canot be less then 1");
         System.out.println("Pasqual Dreieck ohne Array mit " + rows + " Ebenen");
         for(int i = 0; i <= rows; i++) {
             String rowString = "";
-        // Baue die Einzelne Ebene des Pasqualischen Dreiecks
+            // Baue die Einzelne Ebene des Pasqualischen Dreiecks
          for(int j = 0; j <= rows-i; j++){
-             // fülle leere Stellen für das visuelle Dreieck
+            // fülle leere Stellen für das visuelle Dreieck
             rowString += " ";
          }
          for(int j = 0; j <= i; j++){
-             // fülle nach den leer Stellen die ergebnisse mit Leerzeichen aus 
+            // Fülle nach den leer Stellen die ergebnisse mit Leerzeichen aus 
             rowString += " "+ calcPasqualColumn(i, j);
             }
-            // gebe die fertige Ebene aus 
+            // Gebe die fertige Ebene aus 
             System.out.println(rowString);
         }
     }
 
-    public void printPascalDreieckArr(int rows){
+    public static void printPascalDreieckArr(int rows){
+        if(rows < 1) throw new IllegalArgumentException("value canot be less then 1");
         System.out.println("Pasqual Dreieck mit Array und " + rows + " Ebenen");
-        
         for(int i = 0; i < rows + 1; i++){
             int[] pasqualRow = calcPasqualRow(i);
 
@@ -35,11 +36,11 @@ public class PasqualDreieck {
         }
     }
 
-
-    private int[] calcPasqualRow(int row){
-        if(row == 0) return new int[]{1};
-        if(row == 1) return new int[]{1, 1};
-        int[] previousRow = {1, 1};
+    private static int[] calcPasqualRow(int row){
+        if(row == 0) return new int[] { 1 };
+        if(row == 1) return new int[] { 1, 1 };
+        int[] previousRow = { 1, 1 };
+        // Baue Pasqualisches Dreick Reihe ab der 2. Reihe
         for(int i = 2; i <= row; i++){
             int[] nextRow = new int[i + 1];
             nextRow[0] = 1;
@@ -49,19 +50,17 @@ public class PasqualDreieck {
             nextRow[i] = 1;
             previousRow = nextRow;
         }
-
         return previousRow;
     }
 
-    private int calcPasqualColumn(int ebene, int r){
+    private static int calcPasqualColumn(int ebene, int r){
         return pasqualFactorial(ebene / ( pasqualFactorial(ebene-r) * pasqualFactorial(r)));
     }
     
-    private int pasqualFactorial(int ebene){
+    private static int pasqualFactorial(int ebene){
         int result;
-        for(result = 1; ebene > 1; ebene--){
-        result *= ebene;
-      }
+        for(result = 1; ebene > 1; ebene--)
+            result *= ebene;
         return result;
     }
 }
